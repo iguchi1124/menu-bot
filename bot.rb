@@ -9,7 +9,7 @@ Dir.mkdir('tmp') unless Dir.exists?('tmp')
 keys = YAML.load_file('secrets.yml')
 root_url = 'http://www.kochi-ct.ac.jp'
 url = 'http://www.kochi-ct.ac.jp/index.php/sessei/sesseitop'
-pdf_file_path = "tmp/kondate.pdf"
+pdf_file_path = 'tmp/kondate.pdf'
 file_urls = []
 file_url = ''
 
@@ -35,8 +35,8 @@ doc.css('#seikatsu').xpath('//tbody//tr//td//ul//li//a').css('a').each do |a|
 end
 
 file_urls.each do |url|
-  file_version = url.gsub(/[^0-9]/,"").to_i
-  version = ('15' + ("%02d" % Time.now.month) + ("%02d" % Time.now.day)).to_i
+  file_version = url.gsub(/[^0-9]/,'').to_i
+  version = ('15' + ('%02d' % Time.now.month) + ('%02d' % Time.now.day)).to_i
   file_url = url if file_version - version < 7
 end
 
@@ -51,4 +51,4 @@ end
 pdf = Grim.reap(pdf_file_path)
 pdf[0].save('tmp/kondate.png', { colorspace: 'CMYK', quality: 100 })
 
-client.update_with_media("【寮生へお知らせ】\n今週の献立です。\nこの投稿は自動投稿です。", File.new("tmp/kondate.png"))
+client.update_with_media("【寮生へお知らせ】\n今週の献立です。\nこの投稿は自動投稿です。", File.new('tmp/kondate.png'))
