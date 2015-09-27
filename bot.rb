@@ -49,6 +49,6 @@ open(pdf_file_path, 'wb') do |output|
 end
 
 pdf = Grim.reap(pdf_file_path)
-pdf[0].save('tmp/kondate.png', { colorspace: 'CMYK', quality: 100 })
+pdf[0].save('tmp/kondate.png', colorspace: 'CMYK', quality: 100)
 
 client.update_with_media("【寮生へお知らせ】\n今週の献立です。\nこの投稿は自動投稿です。", File.new('tmp/kondate.png'))
