@@ -22,7 +22,9 @@ end
 
 charset = nil
 
-html = open(url) do |f|
+uri = URI.parse(url)
+
+html = uri.open do |f|
   charset = f.charset
   f.read
 end
@@ -36,14 +38,16 @@ end
 
 file_urls.each do |url|
   file_version = url.gsub(/[^0-9]/,'').to_i
-  version = ('15' + ('%02d' % Time.now.month) + ('%02d' % Time.now.day)).to_i
+  version = ('16' + ('%02d' % Time.now.month) + ('%02d' % Time.now.day)).to_i
   file_url = url if file_version - version < 7
 end
 
 puts file_url
 
-open(pdf_file_path, 'wb') do |output|
-  open(file_url) do |data|
+url = URI.parse(file_url)
+
+File.open(pdf_file_path, 'wb') do |output|
+  url.open do |data|
     output.write(data.read)
   end
 end
