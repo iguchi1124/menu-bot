@@ -20,10 +20,6 @@ class Crawler
     '/index.php/sessei/sesseitop'
   end
 
-  def file
-    'tmp/kondate.pdf'
-  end
-
   def html
     @charset = nil
 
@@ -64,18 +60,10 @@ class Crawler
   def download_file!(url)
     file_uri = URI.parse(url)
 
-    File.open(file, 'wb') do |output|
+    File.open('tmp/kondate.pdf', 'wb') do |output|
       file_uri.open do |data|
         output.write(data.read)
       end
     end
-  end
-
-  def pdf
-    Grim.reap(file)
-  end
-
-  def convert_image!(pdf)
-    pdf[0].save('tmp/kondate.png', colorspace: 'CMYK', quality: 100)
   end
 end
