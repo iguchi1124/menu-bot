@@ -1,4 +1,4 @@
-require_relative '../twitter/client'
+require_relative '../twitter_client'
 require 'yaml'
 
 desc 'Tweet'

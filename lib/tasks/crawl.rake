@@ -1,4 +1,4 @@
-require_relative '../crawler/crawler'
+require_relative '../crawler'
 
 desc 'Crawl http://www.kochi-ct.ac.jp'
 task 'crawl' do
